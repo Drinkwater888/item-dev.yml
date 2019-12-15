@@ -1,0 +1,39 @@
+server:
+  port: 8081
+spring:
+  application:
+    name: item-service
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/leyou?useUnicode=true&characterEncoding=utf-8
+    username: root
+    password: root
+  rabbitmq:
+    host: 127.0.0.1
+    virtual-host: /leyou
+    username: leyou
+    password: leyou
+    template:
+      retry:
+        enabled: true
+        initial-interval: 10000ms
+        max-interval: 80000ms
+        multiplier: 2
+    publisher-confirms: true
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:10086/eureka
+  instance:
+    ip-address: 127.0.0.1
+    prefer-ip-address: true
+mybatis:
+  type-aliases-package: com.leyou.item.domain
+  configuration:
+    map-underscore-to-camel-case: true
+  mapper-locations: mapper/*.xml
+logging:
+  level:
+    com.leyou: debug
+mapper:
+  wrap-keyword: "`{0}`"
